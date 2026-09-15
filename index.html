@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'" />
+    <title>Neon Breaker</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="game-shell">
+      <header>
+        <div>
+          <p class="eyebrow">ARCADE / 01</p>
+          <h1>NEON BREAKER</h1>
+        </div>
+        <button id="restart-button" type="button">Reiniciar</button>
+      </header>
+
+      <section class="hud" aria-label="Información de partida">
+        <div><span>Puntaje</span><strong id="score">00000</strong></div>
+        <div class="hud-lives"><span>Vidas</span><strong id="lives">♥ ♥</strong></div>
+        <div><span>Nivel</span><strong id="level">01</strong></div>
+      </section>
+
+      <div class="canvas-frame">
+        <canvas id="game" width="900" height="600" aria-label="Juego Brick Breaker"></canvas>
+        <div id="message" class="message" aria-live="polite">
+          <h2>NEON BREAKER</h2>
+          <section id="home-scoreboard" aria-labelledby="home-scoreboard-title" hidden>
+            <h3 id="home-scoreboard-title">SCOREBOARD · TOP 10</h3>
+            <table><thead><tr><th scope="col">Puesto</th><th scope="col">Apodo</th><th scope="col">Puntaje</th></tr></thead><tbody id="home-scoreboard-rows"></tbody></table>
+            <p id="home-scoreboard-status">Cargando puntajes…</p>
+          </section>
+          <button id="start-button" type="button">Jugar</button>
+          <p id="message-text">Movete con ← → o A / D</p>
+        </div>
+        <section id="question-modal" class="question-modal" aria-live="polite" aria-modal="true" role="dialog" aria-labelledby="question-title" hidden>
+          <div class="question-card">
+            <h2 id="question-title">Respondé la pregunta</h2>
+            <p id="question-text" class="question-text"></p>
+            <div id="question-options" class="question-options" aria-label="Opciones de respuesta"></div>
+            <p class="question-countdown" role="timer" aria-live="off">Tiempo restante: <strong id="question-timer">20 s</strong></p>
+          </div>
+        </section>
+      </div>
+
+      <p class="help">Usá las flechas izquierda/derecha o las teclas A y D. Presioná espacio para pausar.</p>
+    </main>
+    <dialog id="result-dialog" class="arcade-dialog" aria-labelledby="result-title">
+      <h2 id="result-title">GAME OVER</h2>
+      <p id="final-score"></p>
+      <form id="nickname-form">
+        <label for="nickname">Ingresá tu apodo de 3 letras</label>
+        <input id="nickname" name="nickname" minlength="3" maxlength="3" pattern="[A-Za-z]{3}" required autocomplete="off" spellcheck="false" aria-describedby="nickname-help" />
+        <p id="nickname-help">Solo letras de la A a la Z.</p>
+        <button id="save-score" type="submit">Guardar puntaje</button>
+      </form>
+      <section id="scoreboard" hidden aria-labelledby="scoreboard-title">
+        <h3 id="scoreboard-title">SCOREBOARD · TOP 10</h3>
+        <table><thead><tr><th scope="col">Puesto</th><th scope="col">Apodo</th><th scope="col">Puntaje</th></tr></thead><tbody id="scoreboard-rows"></tbody></table>
+        <p id="scoreboard-empty" hidden>Todavía no hay puntajes guardados.</p>
+        <p id="scoreboard-note"></p>
+        <button id="next-player" type="button">Jugar otra vez</button>
+      </section>
+      <p id="score-error" class="form-error" role="alert"></p>
+    </dialog>
+    <dialog id="clear-dialog" class="arcade-dialog" aria-labelledby="clear-title">
+      <h2 id="clear-title">¿Borrar el scoreboard?</h2>
+      <p>Se eliminarán todos los puntajes guardados en esta computadora. Esta acción no se puede deshacer.</p>
+      <div class="dialog-actions">
+        <button id="cancel-clear" type="button" autofocus>Cancelar</button>
+        <button id="confirm-clear" type="button">Borrar ranking</button>
+      </div>
+      <p id="clear-error" class="form-error" role="alert"></p>
+    </dialog>
+    <script src="scoreboard.js"></script>
+    <script src="game.js"></script>
+  </body>
+</html>
